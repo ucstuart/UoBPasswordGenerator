@@ -127,6 +127,8 @@ function getPasswordOptions() {
 
   }
 
+  // Check if the number provided is between the minimum length and maximum length specified, if it is not advise the user.
+
   if (requireLengthOfPassword < minLength || requireLengthOfPassword > maxLength) {
     
     // Testing Debug Code
@@ -150,6 +152,15 @@ function getPasswordOptions() {
 
   }
 
+  // confirm the number provided sits between the minimum and maximum length
+
+  if (requireLengthOfPassword > minLength || requireLengthOfPassword < maxLength) {
+    if (env === "T") {
+      console.log("The number input is between the minimum and max length");
+    }
+  }
+
+  // ask the user what types of characters they require in their password
 
   var requireLowerCase = confirm("Do you require Lower Case Characters?");
   var requireUpperCase = confirm("Do you require Uppoer Case Characters?");
@@ -165,7 +176,51 @@ function getPasswordOptions() {
     console.log("Special :"+requireSpecial);
   }
 
+  // work out the amount of characters per type
 
+  numberOfTypes = 0; // variable for keeping track of if there are 1, 2, 3, or 4 different types.
+
+  //LowerCase
+  if (requireLowerCase === true) {
+    numberOfTypes = numberOfTypes +1;
+    if (env ==="T") {
+      console.log("Step 1: Number of Types Calculated: "+numberOfTypes);
+    }
+  }
+  //UpperCase
+  if (requireUpperCase === true) {
+    numberOfTypes = numberOfTypes +1;
+    if (env ==="T") {
+      console.log("Step 2: Number of Types Calculated: "+numberOfTypes);
+    }
+  }
+  //Numeric
+  if (requireNumeric === true) {
+    numberOfTypes = numberOfTypes +1;
+    if (env ==="T") {
+      console.log("Step 3: Number of Types Calculated: "+numberOfTypes);
+    }
+  }
+  //Special
+  if (requireSpecial === true) {
+    numberOfTypes = numberOfTypes +1;
+    if (env ==="T") {
+      console.log("Step 4: Number of Types Calculated: "+numberOfTypes);
+    }
+  }
+
+  // Calculate how many characters there should be per type e.g. LengthOfPassword / NumberOfTypes
+
+  CharactersEachType = 0; // the amount of characters we will have per different type in the password
+
+  // we need to cater for the issue of the number not been round as we cant have 2.75 characters if the password length is 11 and the number of types are 4.
+  
+
+  CharactersEachType = requireLengthOfPassword / numberOfTypes;
+
+  if (env ==="T") {
+    console.log("Number of Characters per Type: "+CharactersEachType);
+  }
 
 
 
