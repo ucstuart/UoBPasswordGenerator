@@ -213,14 +213,97 @@ function getPasswordOptions() {
 
   CharactersEachType = 0; // the amount of characters we will have per different type in the password
 
-  // we need to cater for the issue of the number not been round as we cant have 2.75 characters if the password length is 11 and the number of types are 4.
+  // This whole section addresses the part that / may provide a decimal e.g. 2.75, which we could not work with,
+  // this works out the remainder, and takes it off the first valid option. 
+
+  CharactersEachType = requireLengthOfPassword % numberOfTypes;
+
+  console.log("Characters Each Type Remainder :"+CharactersEachType);
+
+  CalculatedCharactersEachType = CharactersEachType * numberOfTypes;
+
+  console.log("Calculated Characters for Each Type :"+CalculatedCharactersEachType);
+    
+    // Uppercase = 0;
+    // Lowercase = 0;
+    // Numeric = 0;
+    // Special = 0;
   
+  console.log("Required Password Length :"+requireLengthOfPassword);
+  
+  if (CalculatedCharactersEachType > requireLengthOfPassword) {
 
-  CharactersEachType = requireLengthOfPassword / numberOfTypes;
+    Remainder =  CalculatedCharactersEachType - requireLengthOfPassword;
 
-  if (env ==="T") {
-    console.log("Number of Characters per Type: "+CharactersEachType);
+    RemovedRemainder = false;
+    
+
+
+    if (requireUpperCase === true) {
+      
+      if (RemovedRemainder === false) {
+        Uppercase = CharactersEachType - Remainder;
+        RemovedRemainder = true;
+      } else {
+        Uppercase = CharactersEachType;
+      }
+      if (env ==="T") {
+        console.log("Uppercase Characters :"+Uppercase);
+      }
+    }
+
+    if (requireLowerCase === true) {
+      
+      if (RemovedRemainder === false) {
+        Lowercase = CharactersEachType - Remainder;
+        RemovedRemainder = true;
+      } else {
+        Lowercase = CharactersEachType;
+      }
+    if (env ==="T") {
+      console.log("Lowercase Characters :"+Lowercase);
+    }
+    } 
+
+    if (requireNumeric === true) {
+      
+      if (RemovedRemainder === false) {
+        Numeric = CharactersEachType - Remainder;
+        RemovedRemainder = true;
+      } else {
+        Numeric = CharactersEachType;
+      }
+    if (env ==="T") {
+      console.log("Numeric Characters :"+Numeric);
+    }
+    } 
+
+    if (requireSpecial === true) {
+      
+      if (RemovedRemainder === false) {
+        Special = CharactersEachType - Remainder;
+        RemovedRemainder = true;
+      } else {
+        Special = CharactersEachType;
+      }
+    if (env ==="T") {
+      console.log("SpecialCharacters :"+Special);
+    }
+    } 
+
+
   }
+
+  // if (env ==="T") {
+  //   console.log("=========");
+    
+  //   console.log("Upper Case Characters :"+Uppercase);
+  //   console.log("Lower Case Characters :"+Lowercase);
+  //   console.log("Numeric Characters :"+Numeric);
+  //   console.log("Special Characters :"+Special);
+  //   totalChar = Uppercase + Lowercase + Numeric + Special;
+  //   console.log("Total :"+totalChar);
+  // }
 
 
 
